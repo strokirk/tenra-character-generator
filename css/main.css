@@ -1,0 +1,21 @@
+.rank {
+        display:inline;
+    }
+
+td {vertical-align:text-top; }
+.attribute {
+    border: solid 1px lightgray;
+    box-sizing:border-box;
+}
+
+table.wounds,
+table.wounds td {
+    border: 1px solid black;
+}
+
+.vitality input, .soul input {
+    width:125px;
+    height:75px;
+    text-align:center;
+    font-size: 2em;
+}
