@@ -7,58 +7,75 @@
 </head>
 <body>
 <div id="character">
-<table>
-    <tr>
-        <td class="label">Name</td>
-        <td class="input"></td>
-    </tr>
-    <tr>
-        <td class="label">Description</td>
-        <td class="input"></td>
-    </tr>
-    <tr>
-        <td class="label">Sketch</td>
-        <td class="input"></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td colspan="2" class="label wounds">Wounds</td>
-        <td class="vitality"><label>Vitality (body+spirit)</label><br><input type="number"></td>
-        <td class="soul"><label>Soul (spirit+knowledge)x2</label><br><input type="number"></td>
-    </tr>
-    <tr>
-        <td class="label">Kiai</td>
-        <td class="input"></td>
-        <td class="label">Karma</td>
-        <td class="input"></td>
-    </tr>
-    <tr>
-    </tr>
-    <tr>
-        <td class="label">Fates</td>
-        <td class="input"></td>
-    </tr>
-</table>
 <table id="attribute-tables">
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Body</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Agility</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Senses</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Knowledge</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Spirit</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Empathy</td> <td><input type="text"/></td> </tr> </table> </td></tr>
+    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Station</td> <td><input type="text"/></td> </tr> </table>
+    <tr><td> <table class="attribute" width="198px"> <tr> <td class="attribute-label label" colspan="2" >Other</td></tr> 
+        <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /> </tr> </table> </td></tr>
+</table>
+
+<div style="width:30em"> <!-- General information -->
+    <div style="border:1px dotted lightgrey">
+        <label>Name <input style="width:15em;" type="text"></label>
+        <label>Gender <input style="width:4em;" type="text"></label>
+        <label>Age <input style="width:4em;" type="text"></label>
+    </div>
+    <div style="border:1px dotted lightgrey"> <label>Concept <input style="width:29em;" type="text"></label> </div>
+    <div style="border:1px dotted lightgrey">
+        <label>Archetypes <input style="width:27.5em;" type="text"></label><br/>
+        <label>Karma Cost <input style="width:5em;" type="text"></label>
+        <label>Attribute Cost <input style="width:5em;" type="text"></label>
+    </div>
+    <div style="border:1px dotted lightgrey">
+        <label>Karma <input style="width:5em;" type="text"></label>
+        <label>Kiai <input style="width:5em;" type="text"></label>
+        <label>Spent Kiai <input style="width:5em;" type="text"></label>
+    </div>
+    <div style="border:1px dotted lightgrey"> <label>Total Fate cost <input style="width:5em;" type="text"></label> </div>
+</div>
+
+<label>Notes<br><textarea></textarea></label>
+
+<table>
     <tr>
-        <td>
-            <table class="attribute"> <tr> <td class="label">Body</td> </tr> </table>
-            <table class="attribute"> <tr> <td class="label">Agility</td> </tr> </table>
-        </td>
-        <td>
-            <table class="attribute"> <tr> <td class="label">Senses</td> </tr> </table>
-            <table class="attribute"> <tr> <td class="label">Knowledge</td> </tr> </table>
-        </td>
-        <td>
-            <table class="attribute"> <tr> <td class="label">Spirit</td> </tr> </table>
-            <table class="attribute"> <tr> <td class="label">Empathy</td> </tr> </table>
-        </td>
-        <td>
-            <table class="attribute"> <tr> <td class="label">Station</td> </tr> </table>
-        </td>
+        <td colspan="2" class="label wounds" style="text-align:center">Wounds</td>
+        <td class="vitality" style="text-align:center"><label>Vitality<br><span class="small">(body+spirit)</span></label><br><input type="number"></td>
+        <td class="soul" style="text-align:center"><label>Soul<br><span class="small">(spirit+knowledge)x2</span></label><br><input type="number"></td>
     </tr>
 </table>
+
+<label>Possessions <br><textarea name="possessions"></textarea></label>
+<table id="weapons">
+<thead>
+    <th>Weapon</th>
+    <th>Rating</th>
+    <th>RoF</th>
+    <th>Range</th>
+    <th>Ammo</th>
+</thead>
+<tbody>
+<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
+<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
+<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
+<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
+</table>
+<label>Fates
+<table id="fates">
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+</table></label>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

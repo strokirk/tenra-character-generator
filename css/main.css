@@ -1,15 +1,32 @@
-.rank {
-        display:inline;
-    }
+body {width: 210mm; font-family: Arial}
+#character { border: 1px solid lightgray; overflow: hidden;}
+#attribute-tables { float:right; width:210px; }
+.attribute .unfilled { border: 1px solid #ed9a9a; border-radius:7px; }
+.attribute .unfilled { background-color: #FFF; }
+.attribute .unfilled { outline: none; border-color: #ed9a9a; box-shadow: 0 0 10px #ed9a9a; }
+
+.attribute input { padding-left:4px; margin: 0px auto; width: 3em; border: 1px solid lightgray; background-color: #fcfcfc; border-radius:5px; }
 
 td {vertical-align:text-top; }
-.attribute {
-    border: solid 1px lightgray;
-    box-sizing:border-box;
+.attribute { border: solid 1px lightgray; border-collapse:collapse; }
+.attribute tr:first-child { background-color: #eaeaea }
+.attribute tr:not(:first-child) { border-bottom: 1px solid lightgrey}
+.attribute td { padding:1 0 1 3;}
+.attribute td { font-size: 11pt; height:18px }
+.attribute span {font-size: 20pt; line-height:11px; vertical-align: top; }
+.attribute-label { text-decoration: underline; width:125px; }
+td.attribute-label { font-size: 13pt }
+.rank {
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display:inline-block;
+    margin-right: 1px
 }
+.rank-filled { background-color: black; }
 
-table.wounds,
-table.wounds td {
+table.wounds, table.wounds td {
     border: 1px solid black;
 }
 
@@ -19,3 +36,16 @@ table.wounds td {
     text-align:center;
     font-size: 2em;
 }
+
+#weapons, #weapons td {
+    border: solid 1px black;
+}
+#weapons td:not(:first-child) { text-align: center; }
+
+#fates { border: 1px solid black; width:400px; }
+#fates td { border: 1px solid black; vertical-align:middle; }
+#fates .ranks { float:right; margin-top: 7px; height:10px; }
+#fates input { width:320px; }
+
+
+.small { font-size:10pt; }

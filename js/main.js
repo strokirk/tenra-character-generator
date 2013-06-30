@@ -23,54 +23,59 @@ $('.label').each(function( index ) {
     }
 } );
 
-$('.input').each( function( index ) {
-    $(this).append( $('<input type="text"></input>') )
-})
 var ranks = {'Movement':1,'Melee Weapons':1,'Evasion':1,'Stealth':1,'Unarmed Combat':1,'First aid':1,'Notice':1,'Marksman':1,'Pursuit/Hunt':1,'Information':1,'Willpower':1,'Persuation':1,'Pillow Arts':1};
-function setRanks(span) {
-    var skill = $(span).parent().prev().text();
+function setRanks(div) {
+    var skill = $(div).parent().prev().text();
     if (!(skill in ranks)) ranks[skill] = 0;
-    var rank = $(span).prevAll().length + 1;
-    if (ranks[skill] < rank) $(span).text("○");
-    else $(span).text("●");
+
+    var rank = $(div).attr('rank');
+    if (ranks[skill] < rank) {
+        $(div).removeClass('rank-filled');
+    } else {
+        $(div).addClass('rank-filled');
+    }
 }
-function setRanks2(span) {
-    var skill = $(span).parent().prev().text();
-    var rank = $(span).prevAll().length + 1;
-    ranks[skill] = rank;
-    $(span).prevAll().each(function(){setRanks(this)});
+function setRanks2(div) {
+    div = $(div);
+    var skill = div.parent().prev().text();
+    var rank = div.attr('rank');
+    if (ranks[skill] == rank) {
+        ranks[skill] = rank - 1;
+        var skill = div.parent().prev().text();
+        div.removeClass('rank-filled');
+    } else {
+        ranks[skill] = rank;
+        var nextSiblings = div.nextAll();
+        var leftSiblings = div.prevAll();
+        div.addClass('rank-filled');
+        div.prevAll().addClass('rank-filled');
+        div.nextAll().removeClass('rank-filled');
+    }
 }
+$('#attribute-tables').find('input').each( function() {
+    $(this).addClass('unfilled');
+    $(this).bind('input', function() {$(this).removeClass('unfilled'); if (!(this.value)) $(this).addClass('unfilled');});
+});
 $('.ranks').each( function( index ) {
     for (var i = 0; i < 5; i++) {
-        var span = $('<span class="rank">○</span>');
-        var handlerIn = function(){$(this).text("●")};
+        var div = $('<div class="rank" rank="'+(i+1)+'"/>');
+        var handlerIn = function(){setRanks(this)};
         var handlerOut = function(){setRanks(this)};
         var handlerClick = function(){setRanks2(this)};
-        span.hover(handlerIn, handlerOut);
-        span.click(handlerClick);
-        $(this).append(span);
-        setRanks(span);
+        div.hover(handlerIn, handlerOut);
+        div.click(handlerClick);
+        $(this).append(div);
+        setRanks(div);
     }
-})
-$('#attribute-tables').find('table').each( function(){
-   var el = $(this);
-   el.width( el.width() + 2);
-   if ( el.next().length ) {
-       console.log( el.next().width(), el.width() );
-       if (el.next().width() > el.width()) {
-           el.width( el.next().width() +2 );
-       }
-       el.next().width( el.width() +2 );
-   }
 })
 
 var table = $("<table class='wounds'></table>");
 var tr1 = $("<tr></tr>");
 var tr2 = $("<tr></tr>");
 var light = $("<td><br><label>Light</label></td>");
-var heavy = $("<td><br><label>Heavy</label></td>");
-var critical = $("<td><br><label>Critical</label></td>");
-var dead = $("<td><br><label>Dead</label></td>");
+var heavy = $("<td><br><label>Heavy (+1)</label></td>");
+var critical = $("<td><br><label>Critical (+2)</label></td>");
+var dead = $("<td><br><label>Dead (+3)</label></td>");
 tr1.append(light); tr1.append(heavy); tr2.append(critical); tr2.append(dead);
 table.append(tr1);
 table.append(tr2);
@@ -81,7 +86,7 @@ function setWounds(span) {
         $(span).removeClass(".wound-level-max");
         $(span).prev().addClass(".wound-level-max");
     } else {
-        $(span).siblings().has(".wound-level-max").removeClass(".wound-level-max");
+        $(span).siblings().removeClass(".wound-level-max");
         $(span).addClass(".wound-level-max");
         $(span).text("☒");
         $(span).prevAll("span").text("☒");
