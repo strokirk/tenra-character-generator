@@ -125,7 +125,7 @@ function setWounds(span) {
 
 
 // Saving and loading
-var saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept", "description", "archetypes"];
+var saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept", "description", "archetypes", "soul", "vitality"];
 
 function saveCharacterToLocal() {
     'use strict';
@@ -170,7 +170,27 @@ function loadCharacterFromLocal() {
     $('div.rank').each( function() {setRanks(this)} );
 }
 
+function calcSecondaryAttributes() {
+    var body = $("#body").val();
+    var spirit = $("#spirit").val();
+    var knowledge = $("#knowledge").val();
+    if (body && spirit) {
+        var vitality = parseInt(body) + parseInt(spirit);
+        $("#vitality").val(vitality);
+    }
+    if (knowledge && spirit) {
+        var soul = (parseInt(spirit) + parseInt(knowledge)) * 2;
+        $("#soul").val(soul);
+    }
+    if (body) {
+        $("#light-wounds").val(Math.max(parseInt(body) / 1, 1));
+        $("#heavy-wounds").val(Math.max(parseInt(body) / 2, 1));
+        $("#critical-wounds").val(Math.max(parseInt(body) / 4, 1));
+        $("#dead-wounds").val(1);
+    }
+}
+
 console.log("Binding save/load handlers.");
 $('#save').click( saveCharacterToLocal );
 $('#load').click( loadCharacterFromLocal );
-$('#calc').click( loadCharacterFromLocal );
+$('#calc').click( calcSecondaryAttributes );

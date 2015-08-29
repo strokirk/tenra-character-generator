@@ -27,20 +27,20 @@
 
 <div style="width:550px"> <!-- General information -->
     <table id="about-character" style="width:550px;">
-        <tr> <td><label for="name">Name</label></td> <td><input id="name" type="text" /></td> </tr>
-        <tr> <td><label for="concept">Concept</label></td> <td><input id="concept" type="text" /></td> </tr>
-        <tr> <td><label for="description">Description</label></td> <td><input id="description" type="text" /></td> </tr>
+        <tr> <td><label for="name"><b>Name</b></label></td> <td><input id="name" type="text" /></td> </tr>
+        <tr> <td><label for="concept"><b>Concept</b></label></td> <td><input id="concept" type="text" /></td> </tr>
+        <tr> <td><label for="description"><b>Description</b></label></td> <td><input id="description" type="text" /></td> </tr>
     </table>
     <table id="about-archetypes">
         <tr>
-            <td colspan="2"><label for="archetypes">Archetypes</label><span style="font-size: 11pt; color: grey;">, their</span>
+            <td colspan="2"><label for="archetypes"><b>Archetypes</b></label><span style="font-size: 11pt; color: grey;">, their</span>
             <label for="karma-cost">Karma cost</label> <input id="karma-cost" type="text" /> <span style="font-size:11pt; color:grey;">and</span>
             <label for="attribute-cost">Attribute penalty</label> <input id="attribute-cost" type="text" />
             <input id="archetypes" type="" /></td>
         </tr>
     </table>
 
-<label>Notes<br><textarea id="notes" style="width:100%"></textarea></label>
+<label><b>Notes</b><br><textarea id="notes" style="width:100%"></textarea></label>
 
 </div>
 
@@ -57,7 +57,10 @@
     </table> </td>
 
 <td> <table class="health wounds">
-<tr> <th colspan="2"> Wounds ( <input type="text" class="noinputbox" /> - <input type="text" class="noinputbox"> - <input type="text" class="noinputbox"> - <input type="text" class="noinputbox"> ) </th> </tr>
+<tr> <th colspan="2"> Wounds ( <input type="text" id="light-wounds" class="noinputbox" /> -
+                               <input type="text" id="heavy-wounds" class="noinputbox"> -
+                               <input type="text" id="critical-wounds" class="noinputbox"> -
+                               <input type="text" id="dead-wounds" class="noinputbox"> ) </th> </tr>
 <tr><td id="light"><div class="woundboxes"></div><span class="small">Light</span></td>
     <td id="heavy"><div class="woundboxes"></div>Heavy (+1)</td></tr>
 <tr><td id="critical"><div class="woundboxes"></div>Critical (+2/bleed)</td>
@@ -65,7 +68,7 @@
     </table> </td>
 </tr> </table>
 
-<label>Possessions <br><textarea name="possessions"></textarea></label>
+<label><b>Possessions</b> <br><textarea name="possessions"></textarea></label>
 <table id="weapons">
 <thead>
     <th>Weapon</th>
@@ -75,23 +78,25 @@
     <th>Ammo</th>
 </thead>
 <tbody>
-<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
-<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
-<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
-<tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
+<tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
+<tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
+<tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
 </table>
 
-<div style="border:1px dotted lightgrey">
-    <label>Karma <input style="width:4em; height:3.0em;" type="text"/></label>
-    <label>Kiai <input  style="width:4em; height:3.0em;" type="text"/></label>
-    <label>Kiai spent during this act <input style="width:4em; height:3em;" type="text"></label>
-</div>
-<div style="border:1px dotted lightgrey">
-    <label>Total Fate value <input style="width:5em;" type="text"></label>
-    <span class="help_text">Current Karma must be lower than Total Fate value</span>
-</div>
+<table id="karma">
+  <tr>
+    <td><div class="field-box"><label>Kiai</label> <input class="fate" type="text"/></div></td>
+    <td><div class="field-box"><label>Spent Kiai</label> <input class="fate" type="text"></div></td>
+    <td><div class="field-box"><label>Karma</label> <input class="fate" type="text"/></div></td>
+    <td><div class="field-box"><label>Fate Cost</label> <input id="fate-value" class="fate" type="text"></div></td>
+  </tr>
+  <tr>
+    <td colspan=2> <span class="help_text">Karma is increased by Kiai spent during each Act.</span> </td>
+    <td colspan=2> <span class="help_text">Sum of all fate's cost must be lower than Karma.</span> </td>
+  </tr>
+</table>
 <table id="fates">
-    <caption><b>Fates</b> - <span class="help_text">2dots = 10, 3dots = 30, 4dots = 40, 5dots = 50</span></caption>
+    <caption><b>Fates</b> <span class="help_text">Costs: 2dots = 10, 3dots = 30, 4dots = 40, 5dots = 50</span></caption>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>

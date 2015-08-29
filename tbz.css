@@ -59,12 +59,20 @@ table#attribute-tables {
     vertical-align: top;
 }
 .attribute input {
+    float: right;
     width: 3em;
     margin: 0 auto;
     padding-left: 4px;
-    border: 1px solid lightgray;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
     border-radius: 5px;
     background-color: #fcfcfc;
+}
+.attribute input[type=text]:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border-color: rgba(81, 203, 238, 1);
+    outline: none;
 }
 .attribute-label {
     font-size: 13pt;
@@ -72,7 +80,6 @@ table#attribute-tables {
     text-decoration: underline;
 }
 .attribute .unfilled {
-    border: 1px solid #ed9a9a;
     border-color: #ed9a9a;
     border-radius: 7px;
     outline: none;
@@ -86,6 +93,7 @@ table#attribute-tables {
     margin-right: 1px;
     border: 1px solid black;
     border-radius: 50%;
+    background-color: white;
 }
 .rank-filled {
     background-color: black;
@@ -123,19 +131,40 @@ input#soul, input#vitality {
     text-align: center;
 }
 
-#weapons, #weapons td {
+#weapons {
+    width: 400px;
     border: solid 1px black;
 }
-#weapons td:not(:first-child) {
-    text-align: center;
+#weapons td {
+    padding: 0px;
 }
-#weapons td:first-child {
-    padding: 0 2px;
+#weapons td input {
+    border: solid 1px black;
+    padding-left: 3px;
+    width: 126px;
+}
+#weapons td:not(:first-child) input {
+    text-align: center;
+    width: 65px;
 }
 
-#fates {
+input.fate {
+    width: 50px;
+}
+span.help_text {
+    font-size: 8pt;
+}
+table#karma, table#fates, table#fates caption {
+    background-color: #eaeaea;
+}
+table#fates {
     width: 400px;
     border: 1px solid black;
+}
+table#fates caption {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 #fates td {
     vertical-align: middle;
