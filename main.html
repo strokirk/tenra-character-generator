@@ -6,48 +6,63 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-<div id="character">
-<table id="attribute-tables">
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Body</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Agility</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Senses</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Knowledge</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Spirit</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Empathy</td> <td><input type="text"/></td> </tr> </table> </td></tr>
-    <tr><td> <table class="attribute"> <tr> <td class="attribute-label label">Station</td> <td><input type="text"/></td> </tr> </table>
-    <tr><td> <table class="attribute" width="198px"> <tr> <td class="attribute-label label" colspan="2" >Other</td></tr> 
-        <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /> </tr> </table> </td></tr>
-</table>
-
-<div style="width:30em"> <!-- General information -->
-    <div style="border:1px dotted lightgrey">
-        <label>Name <input style="width:15em;" type="text"></label>
-        <label>Gender <input style="width:4em;" type="text"></label>
-        <label>Age <input style="width:4em;" type="text"></label>
-    </div>
-    <div style="border:1px dotted lightgrey"> <label>Concept <input style="width:29em;" type="text"></label> </div>
-    <div style="border:1px dotted lightgrey">
-        <label>Archetypes <input style="width:27.5em;" type="text"></label><br/>
-        <label>Karma Cost <input style="width:5em;" type="text"></label>
-        <label>Attribute Cost <input style="width:5em;" type="text"></label>
-    </div>
-    <div style="border:1px dotted lightgrey">
-        <label>Karma <input style="width:5em;" type="text"></label>
-        <label>Kiai <input style="width:5em;" type="text"></label>
-        <label>Spent Kiai <input style="width:5em;" type="text"></label>
-    </div>
-    <div style="border:1px dotted lightgrey"> <label>Total Fate cost <input style="width:5em;" type="text"></label> </div>
+<div id="control">
+    <input type="button" id="save" value="Save"/>
+    <input type="button" id="load" value="Load"/>
 </div>
 
-<label>Notes<br><textarea></textarea></label>
-
-<table>
-    <tr>
-        <td colspan="2" class="label wounds" style="text-align:center">Wounds</td>
-        <td class="vitality" style="text-align:center"><label>Vitality<br><span class="small">(body+spirit)</span></label><br><input type="number"></td>
-        <td class="soul" style="text-align:center"><label>Soul<br><span class="small">(spirit+knowledge)x2</span></label><br><input type="number"></td>
-    </tr>
+<div id="character">
+<table id="attribute-tables">
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Body</td> <td><input type="text" id="body"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Agility</td> <td><input type="text" id="agility"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Senses</td> <td><input type="text" id="senses"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Knowledge</td> <td><input type="text" id="knowledge"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Spirit</td> <td><input type="text" id="spirit"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Empathy</td> <td><input type="text" id="empathy"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Station</td> <td><input type="text" id="station"/></td> </tr></table> </td></tr>
+    <tr><td> <table class="attribute" width="198px"> <tr><td class="attribute-label label" colspan="2" >Other</td></tr>
+               <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /></tr> </table> </td></tr>
 </table>
+
+<div style="width:550px"> <!-- General information -->
+    <table id="about-character" style="width:550px;">
+        <tr> <td><label for="name">Name</label></td> <td><input id="name" type="text" /></td> </tr>
+        <tr> <td><label for="concept">Concept</label></td> <td><input id="concept" type="text" /></td> </tr>
+        <tr> <td><label for="description">Description</label></td> <td><input id="description" type="text" /></td> </tr>
+    </table>
+    <table id="about-archetypes">
+        <tr>
+            <td colspan="2"><label for="archetypes">Archetypes</label><span style="font-size: 11pt; color: grey;">, their</span>
+            <label for="karma-cost">Karma cost</label> <input id="karma-cost" type="text" /> <span style="font-size:11pt; color:grey;">and</span>
+            <label for="attribute-cost">Attribute penalty</label> <input id="attribute-cost" type="text" />
+            <input id="archetypes" type="" /></td>
+        </tr>
+    </table>
+
+<label>Notes<br><textarea style="width:100%"></textarea></label>
+
+</div>
+
+
+<table id="about-health"> <tr>
+<td> <table class="health vitality">
+<tr> <th class="vitality"> <label for="vitality">Vitality<br/><span class="small">(body+spirit)</span></label> </th> </tr>
+<tr> <td class="vitality"> <input id="vitality" type="number" /> </td> </tr>
+    </table> </td>
+
+<td> <table class="health soul">
+<tr> <th class="soul"> <label for="soul">Soul<br/><span class="small">(Spirit+Knowledge)x2</span></label> </th> </tr>
+<tr> <td class="soul"> <input id="soul" type="number" /> </td> </tr>
+    </table> </td>
+
+<td> <table class="health wounds">
+<tr> <th colspan="2"> Wounds ( <input type="text" class="noinputbox" /> - <input type="text" class="noinputbox"> - <input type="text" class="noinputbox"> - <input type="text" class="noinputbox"> ) </th> </tr>
+<tr><td id="light"><div class="woundboxes"></div><span class="small">Light</span></td>
+    <td id="heavy"><div class="woundboxes"></div>Heavy (+1)</td></tr>
+<tr><td id="critical"><div class="woundboxes"></div>Critical (+2/bleed)</td>
+    <td id="dead"><div class="woundboxes"></div>Dead (+3)</td></tr>
+    </table> </td>
+</tr> </table>
 
 <label>Possessions <br><textarea name="possessions"></textarea></label>
 <table id="weapons">
@@ -64,6 +79,13 @@
 <tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
 <tr> <td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /><td contentEditable /> </tr>
 </table>
+
+<div style="border:1px dotted lightgrey">
+    <label>Karma <input style="width:4em; height:3.0em;" type="text"/></label>
+    <label>Kiai <input  style="width:4em; height:3.0em;" type="text"/></label>
+    <label>Kiai spent during this act <input style="width:4em; height:3em;" type="text"></label>
+</div>
+<div style="border:1px dotted lightgrey"> <label>Total Fate cost <input style="width:5em;" type="text"></label> </div>
 <label>Fates
 <table id="fates">
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
@@ -79,6 +101,7 @@
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="js/jquery-1.9.1.min.js"><\/script>')</script>
 <script src="./js/main.js"></script>
 </body>
 </html>
