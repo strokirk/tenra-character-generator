@@ -1,51 +1,151 @@
-body {width: 210mm; font-family: Arial}
-#character { border: 1px solid lightgray; overflow: hidden;}
-#attribute-tables { float:right; width:210px; }
-.attribute .unfilled { border: 1px solid #ed9a9a; border-radius:7px; }
-.attribute .unfilled { background-color: #FFF; }
-.attribute .unfilled { outline: none; border-color: #ed9a9a; box-shadow: 0 0 10px #ed9a9a; }
+.noinputbox {
+    width: 2em;
+    border: none;
+    outline: none;
+}
+.small {
+    font-size: 10pt;
+}
 
-.attribute input { padding-left:4px; margin: 0px auto; width: 3em; border: 1px solid lightgray; background-color: #fcfcfc; border-radius:5px; }
 
-td {vertical-align:text-top; }
-.attribute { border: solid 1px lightgray; border-collapse:collapse; }
-.attribute tr:first-child { background-color: #eaeaea }
-.attribute tr:not(:first-child) { border-bottom: 1px solid lightgrey}
-.attribute td { padding:1 0 1 3;}
-.attribute td { font-size: 11pt; height:18px }
-.attribute span {font-size: 20pt; line-height:11px; vertical-align: top; }
-.attribute-label { text-decoration: underline; width:125px; }
-td.attribute-label { font-size: 13pt }
+body {
+    font-family: Arial;
+    width: 210mm;
+}
+td {
+    vertical-align: text-top;
+}
+
+#about-character {
+    width: 550px;
+}
+#about-character td:first-child {
+    width: 90px;
+}
+#archetypes, #about-character input {
+    width: 100%;
+}
+#karma-cost, #attribute-cost {
+    width: 50px;
+}
+
+#character {
+    overflow: hidden;
+    border: 1px solid lightgray;
+}
+
+table#attribute-tables {
+    float: right;
+    width: 210px;
+}
+.attribute {
+    border-collapse: collapse;
+    border: solid 1px lightgray;
+}
+.attribute tr:first-child {
+    background-color: #eaeaea;
+}
+.attribute tr:not(:first-child) {
+    border-bottom: 1px solid lightgrey;
+}
+.attribute td {
+    font-size: 11pt;
+    height: 18px;
+    padding: 1 0 1 3;
+}
+.attribute span {
+    font-size: 20pt;
+    line-height: 11px;
+    vertical-align: top;
+}
+.attribute input {
+    width: 3em;
+    margin: 0 auto;
+    padding-left: 4px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}
+.attribute-label {
+    font-size: 13pt;
+    width: 125px;
+    text-decoration: underline;
+}
+.attribute .unfilled {
+    border: 1px solid #ed9a9a;
+    border-color: #ed9a9a;
+    border-radius: 7px;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px #ed9a9a;
+}
 .rank {
+    display: inline-block;
     width: 10px;
     height: 10px;
+    margin-right: 1px;
     border: 1px solid black;
     border-radius: 50%;
-    display:inline-block;
-    margin-right: 1px
 }
-.rank-filled { background-color: black; }
+.rank-filled {
+    background-color: black;
+}
 
-table.wounds, table.wounds td {
+table#about-health td {
+    vertical-align: top;
+}
+.health {
+    height: 130px;
+}
+.health th {
+    text-align: center;
+    background-color: #eaeaea;
+}
+.health th input {
+    border-radius: 5px;
+}
+.health, .health td, .health th {
     border: 1px solid black;
 }
-
-.vitality input, .soul input {
-    width:125px;
-    height:75px;
-    text-align:center;
+table.vitality {
+    width: 135px;
+}
+table.soul {
+    width: 155px;
+}
+table.wounds {
+    width: 250px;
+}
+input#soul, input#vitality {
     font-size: 2em;
+    width: 100%;
+    height: 75px;
+    text-align: center;
 }
 
 #weapons, #weapons td {
     border: solid 1px black;
 }
-#weapons td:not(:first-child) { text-align: center; }
+#weapons td:not(:first-child) {
+    text-align: center;
+}
+#weapons td:first-child {
+    padding: 0 2px;
+}
 
-#fates { border: 1px solid black; width:400px; }
-#fates td { border: 1px solid black; vertical-align:middle; }
-#fates .ranks { float:right; margin-top: 7px; height:10px; }
-#fates input { width:320px; }
-
-
-.small { font-size:10pt; }
+#fates {
+    width: 400px;
+    border: 1px solid black;
+}
+#fates td {
+    vertical-align: middle;
+    border: 1px solid black;
+}
+#fates .ranks {
+    float: right;
+    height: 10px;
+    margin-top: 7px;
+}
+#fates input {
+    width: 320px;
+}
