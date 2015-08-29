@@ -39,7 +39,7 @@
         </tr>
     </table>
 
-<label>Notes<br><textarea style="width:100%"></textarea></label>
+<label>Notes<br><textarea id="notes" style="width:100%"></textarea></label>
 
 </div>
 
@@ -85,9 +85,12 @@
     <label>Kiai <input  style="width:4em; height:3.0em;" type="text"/></label>
     <label>Kiai spent during this act <input style="width:4em; height:3em;" type="text"></label>
 </div>
-<div style="border:1px dotted lightgrey"> <label>Total Fate cost <input style="width:5em;" type="text"></label> </div>
-<label>Fates
+<div style="border:1px dotted lightgrey">
+    <label>Total Fate value <input style="width:5em;" type="text"></label>
+    <span class="help_text">Current Karma must be lower than Total Fate value</span>
+</div>
 <table id="fates">
+    <caption><b>Fates</b> - <span class="help_text">2dots = 10, 3dots = 30, 4dots = 40, 5dots = 50</span></caption>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
@@ -96,7 +99,7 @@
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
     <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-</table></label>
+</table>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

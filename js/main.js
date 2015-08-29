@@ -69,12 +69,12 @@ $('#attribute-tables').find('input').each( function() {
     $(this).addClass('unfilled');
     $(this).bind('input', function() {$(this).removeClass('unfilled'); if (!(this.value)) $(this).addClass('unfilled');});
 });
-$('.ranks').each( function( index ) {
+$('.ranks').each(function(index) {
     for (var i = 0; i < 5; i++) {
-        var div = $('<div class="rank" rank="'+(i+1)+'"/>');
-        var handlerIn = function(){setRanks(this)};
-        var handlerOut = function(){setRanks(this)};
-        var handlerClick = function(){setRanks2(this)};
+        var div = $('<div class="rank" rank="' + (i + 1) + '"/>');
+        var handlerIn = function() { setRanks(this) };
+        var handlerOut = function() { setRanks(this) };
+        var handlerClick = function() { setRanks2(this) };
         div.hover(handlerIn, handlerOut);
         div.click(handlerClick);
         $(this).append(div);
@@ -127,44 +127,42 @@ function setWounds(span) {
 // Saving and loading
 var saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept", "description", "archetypes"];
 
-console.log(JSON.stringify);
 function saveCharacterToLocal() {
     'use strict';
     console.log("Saving.");
     var characterObject = {};
-    var characterString = "";
+    for (var i = 0, len = saved_ids.length; i < len; i++) {
+        characterObject[saved_ids[i]] = $('#'+saved_ids[i]).val();
+    }
+    characterObject['skills'] = {};
     for (var rank in ranks) {
-        characterString += rank + "=" + ranks[rank] + ";";
+        characterObject['skills'][rank] = ranks[rank];
     }
-    if (characterString == "") characterString = ";;";
-    else characterString += ";";
-    for (var id in saved_ids) {
-        characterString += saved_ids[id] + "=" + $('#'+saved_ids[id]).val() + ";";
-    }
-    localStorage.setItem("saved-tenra-character", characterString);
+    var json_char = JSON.stringify(characterObject);
+    localStorage.setItem("saved-tenra-character", json_char);
 }
 
 function loadCharacterFromLocal() {
+    'use strict';
     console.log("Loading.");
     var characterString = localStorage.getItem("saved-tenra-character");
     if (characterString) {
         console.log(characterString);
-        var parts = characterString.split( /;;/ );
-        var skills = parts[0].split( /(.*?=[0-5]);/ );
-        for (var i in skills) {
-            var skill = skills[i].split( /=/ );
-            if (skill.length != 1) {
-                // console.log(skill[0], skill[1]);
-                ranks[skill[0]]=skill[1];
+        var characterObject = JSON.parse(characterString);
+        console.log(characterObject);
+        var attr, skill;
+        for (skill in characterObject['skills']){
+            if (characterObject['skills'].hasOwnProperty(skill)) {
+                ranks[skill] = characterObject['skills'][skill];
             }
         }
-        var ids = parts[1].split( /(.*?=.*?);/ );
-        for (var i in ids) {
-            var id = ids[i].split( /=/ );
-            if (id.length != 1) {
-                console.log(ids[i]);
-                $('#'+id[0]).val(id[1]);
-                if (id[1] != "") $('#'+id[0]).removeClass("unfilled");
+        for (attr in characterObject){
+            if (characterObject.hasOwnProperty(attr)) {
+                var elem = $('#'+attr);
+                if (elem.length) {
+                    elem.val(characterObject[attr]);
+                    if (characterObject[attr]) elem.removeClass("unfilled");
+                }
             }
         }
     }
