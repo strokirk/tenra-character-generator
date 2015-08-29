@@ -1,5 +1,5 @@
-
-var db = {   'body': ['Unarmed Combat', 'Wormcharm'],
+var db = {
+    'body': ['Unarmed Combat', 'Wormcharm'],
     'agility': ['Movement', 'Melee Weapons', 'Evasion', 'Stealth', 'Ninjutsu', 'Criminal Arts'],
     'senses': ['First aid', 'Notice', 'Marksman', 'Pursuit/Hunt', 'Forgery'],
     'knowledge': ['Information', 'Onmyoujutsu'],
@@ -7,9 +7,23 @@ var db = {   'body': ['Unarmed Combat', 'Wormcharm'],
     'empathy': ['Persuation', 'Pillow Arts', 'Perform'],
     'station': ['Strategy', 'Etiquette', 'Shinto', 'Art of Rule']
 }
+var ranks = {
+    'Movement': 1,
+    'Melee Weapons': 1,
+    'Evasion': 1,
+    'Stealth': 1,
+    'Unarmed Combat': 1,
+    'First aid': 1,
+    'Notice': 1,
+    'Marksman': 1,
+    'Pursuit/Hunt': 1,
+    'Information': 1,
+    'Willpower': 1,
+    'Persuation': 1,
+    'Pillow Arts': 1
+};
 
-var key;
-$('.label').each(function( index ) { 
+$('.label').each(function( index ) {
     var name = $(this).text().toLowerCase();
     if (name in db) {
         var dbi = db[name];
@@ -23,7 +37,6 @@ $('.label').each(function( index ) {
     }
 } );
 
-var ranks = {'Movement':1,'Melee Weapons':1,'Evasion':1,'Stealth':1,'Unarmed Combat':1,'First aid':1,'Notice':1,'Marksman':1,'Pursuit/Hunt':1,'Information':1,'Willpower':1,'Persuation':1,'Pillow Arts':1};
 function setRanks(div) {
     var skill = $(div).parent().prev().text();
     if (!(skill in ranks)) ranks[skill] = 0;
@@ -69,17 +82,6 @@ $('.ranks').each( function( index ) {
     }
 })
 
-var table = $("<table class='wounds'></table>");
-var tr1 = $("<tr></tr>");
-var tr2 = $("<tr></tr>");
-var light = $("<td><br><label>Light</label></td>");
-var heavy = $("<td><br><label>Heavy (+1)</label></td>");
-var critical = $("<td><br><label>Critical (+2)</label></td>");
-var dead = $("<td><br><label>Dead (+3)</label></td>");
-tr1.append(light); tr1.append(heavy); tr2.append(critical); tr2.append(dead);
-table.append(tr1);
-table.append(tr2);
-$(".wounds").append( table )
 function setWounds(span) {
     if ($(span).hasClass(".wound-level-max")) {
         $(span).text("☐");
@@ -93,11 +95,20 @@ function setWounds(span) {
         $(span).nextAll("span").text("☐");
     }
 }
-function makeSpan() { var span=$("<span>☐</span>"); var handlerClick = function(){setWounds(this)}; span.click(handlerClick); return span; }
-for (var i=0;i<10;i++) { light.prepend(makeSpan()) }
-for (var i=0;i<5;i++) { heavy.prepend(makeSpan()) }
-for (var i=0;i<3;i++) { critical.prepend(makeSpan()) }
-for (var i=0;i<1;i++) { dead.prepend(makeSpan()) }
+
+(function(){
+    'use strict';
+    function makeSpan() {
+        var span = $("<span>☐</span>");
+        var handlerClick = function() { setWounds(this) };
+        span.click(handlerClick);
+        return span;
+    }
+    for (var i = 0; i < 10; i++) { $('#light div').prepend(makeSpan()) }
+    for (var i = 0; i < 5; i++)  { $('#heavy div').prepend(makeSpan()) }
+    for (var i = 0; i < 3; i++)  { $('#critical div').prepend(makeSpan()) }
+    for (var i = 0; i < 1; i++)  { $('#dead div').prepend(makeSpan()) }
+})();
 
 
 // choose
@@ -107,3 +118,60 @@ for (var i=0;i<1;i++) { dead.prepend(makeSpan()) }
 // image
 // archetypes
 // -- add together karma, attribute penalty, weapons, special abilities, skills etc
+
+
+
+//
+
+
+// Saving and loading
+var saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept", "description", "archetypes"];
+
+console.log(JSON.stringify);
+function saveCharacterToLocal() {
+    'use strict';
+    console.log("Saving.");
+    var characterObject = {};
+    var characterString = "";
+    for (var rank in ranks) {
+        characterString += rank + "=" + ranks[rank] + ";";
+    }
+    if (characterString == "") characterString = ";;";
+    else characterString += ";";
+    for (var id in saved_ids) {
+        characterString += saved_ids[id] + "=" + $('#'+saved_ids[id]).val() + ";";
+    }
+    localStorage.setItem("saved-tenra-character", characterString);
+}
+
+function loadCharacterFromLocal() {
+    console.log("Loading.");
+    var characterString = localStorage.getItem("saved-tenra-character");
+    if (characterString) {
+        console.log(characterString);
+        var parts = characterString.split( /;;/ );
+        var skills = parts[0].split( /(.*?=[0-5]);/ );
+        for (var i in skills) {
+            var skill = skills[i].split( /=/ );
+            if (skill.length != 1) {
+                // console.log(skill[0], skill[1]);
+                ranks[skill[0]]=skill[1];
+            }
+        }
+        var ids = parts[1].split( /(.*?=.*?);/ );
+        for (var i in ids) {
+            var id = ids[i].split( /=/ );
+            if (id.length != 1) {
+                console.log(ids[i]);
+                $('#'+id[0]).val(id[1]);
+                if (id[1] != "") $('#'+id[0]).removeClass("unfilled");
+            }
+        }
+    }
+    console.log("Loading complete. Updating.");
+    $('div.rank').each( function() {setRanks(this)} );
+}
+
+console.log("Binding save/load handlers.");
+$('#save').click( saveCharacterToLocal );
+$('#load').click( loadCharacterFromLocal );
