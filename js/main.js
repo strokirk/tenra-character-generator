@@ -173,3 +173,4 @@ function loadCharacterFromLocal() {
 console.log("Binding save/load handlers.");
 $('#save').click( saveCharacterToLocal );
 $('#load').click( loadCharacterFromLocal );
+$('#calc').click( loadCharacterFromLocal );
