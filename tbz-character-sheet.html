@@ -1,8 +1,8 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-87">
+    <title>Tenra Bansho Zero HTML Character Sheet</title>
     <link rel="stylesheet" href="./tbz.css">
 </head>
 <body>
@@ -13,6 +13,7 @@
 </div>
 
 <div id="character">
+<div>
 <table id="attribute-tables">
     <tr><td> <table class="attribute"><tr><td class="attribute-label label">Body</td> <td><input type="text" id="body"/></td> </tr></table> </td></tr>
     <tr><td> <table class="attribute"><tr><td class="attribute-label label">Agility</td> <td><input type="text" id="agility"/></td> </tr></table> </td></tr>
@@ -24,6 +25,7 @@
     <tr><td> <table class="attribute" width="198px"> <tr><td class="attribute-label label" colspan="2" >Other</td></tr>
                <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /></tr> </table> </td></tr>
 </table>
+</div>
 
 <div style="width:550px"> <!-- General information -->
     <table id="about-character" style="width:550px;">
@@ -40,10 +42,7 @@
         </tr>
     </table>
 
-<label><b>Notes</b><br><textarea id="notes" style="width:100%"></textarea></label>
-
-</div>
-
+<label><b>Notes</b><br><textarea id="notes" class="big-text"></textarea></label>
 
 <table id="about-health"> <tr>
 <td> <table class="health vitality">
@@ -68,7 +67,7 @@
     </table> </td>
 </tr> </table>
 
-<label><b>Possessions</b> <br><textarea name="possessions"></textarea></label>
+<label><b>Possessions</b> <br><textarea name="possessions" class="big-text"></textarea></label>
 <table id="weapons">
 <thead>
     <th>Weapon</th>
@@ -94,22 +93,27 @@
     <td colspan=2> <span class="help_text">Karma is increased by Kiai spent during each Act.</span> </td>
     <td colspan=2> <span class="help_text">Sum of all fate's cost must be lower than Karma.</span> </td>
   </tr>
-</table>
+<tr>
+    <td colspan=4>
 <table id="fates">
     <caption><b>Fates</b> <span class="help_text">Costs: 2dots = 10, 3dots = 30, 4dots = 40, 5dots = 50</span></caption>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
-    <tr> <td class="fate"> <input type="text"/> <div class="ranks"></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+    <tr> <td class="fate"> <div class="ranks"></div> <div class="fate"><input type="text"/></div> </td> </tr>
+</table>
+</td>
+  </tr>
 </table>
 </div>
+</div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>!window.jQuery && document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
-<script src="./tbz.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" >!window.jQuery && document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
+<script type="text/javascript" src="./tbz.js"></script>
 </body>
 </html>
