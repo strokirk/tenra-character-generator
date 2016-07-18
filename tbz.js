@@ -24,16 +24,17 @@ var ranks = {
 };
 
 $('.label').each(function( index ) {
-    var name = $(this).text().toLowerCase();
+    var elm = $(this);
+    var name = elm.text().toLowerCase();
     if (name in db) {
         var dbi = db[name];
         for (item in dbi) {
             var tr = $('<tr><td class="label">'+dbi[item]+'</td><td class="ranks"></td></tr>');
             tr.children('.ranks').data('skill', dbi[item]);
-            $(this).closest('tbody').append(tr);
-            $(this).parent('tr').addClass(name);
-            $(this).closest('table').addClass(name);
-            $(this).closest('table').closest('tr').addClass(name);
+            elm.closest('tbody').append(tr);
+            elm.parent('tr').addClass(name);
+            elm.closest('table').addClass(name);
+            elm.closest('table').closest('tr').addClass(name);
         }
     }
 } );

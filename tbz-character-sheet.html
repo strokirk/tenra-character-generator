@@ -6,29 +6,26 @@
     <link rel="stylesheet" href="./tbz.css">
 </head>
 <body>
-<div id="control">
-    <input type="button" id="save" value="Save"/>
-    <input type="button" id="load" value="Load"/>
-    <input type="button" id="calc" value="Calc" title="Calculate secondary values"/>
-</div>
-
 <div id="character">
+
 <div class="column-1 rght">
-<table id="attribute-tables">
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Body</td> <td><input type="text" id="body"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Agility</td> <td><input type="text" id="agility"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Senses</td> <td><input type="text" id="senses"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Knowledge</td> <td><input type="text" id="knowledge"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Spirit</td> <td><input type="text" id="spirit"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Empathy</td> <td><input type="text" id="empathy"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute"><tr><td class="attribute-label label">Station</td> <td><input type="text" id="station"/></td> </tr></table> </td></tr>
-    <tr><td> <table class="attribute" width="198px"> <tr><td class="attribute-label label" colspan="2" >Other</td></tr>
-               <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /></tr> </table> </td></tr>
-</table>
+<div id="attribute-tables">
+     <table class="attribute"><tr><th class="attribute-label label">Body</th> <td><input type="text" id="body"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Agility</th> <td><input type="text" id="agility"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Senses</th> <td><input type="text" id="senses"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Knowledge</th> <td><input type="text" id="knowledge"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Spirit</th> <td><input type="text" id="spirit"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Empathy</th> <td><input type="text" id="empathy"/></td> </tr></table>
+     <table class="attribute"><tr><th class="attribute-label label">Station</th> <td><input type="text" id="station"/></td> </tr></table>
+     <table class="attribute" width="198px">
+         <tr><td class="attribute-label label" colspan="2" >Other</td></tr>
+         <tr> <td class="label" width="125" contenteditable>Art of War (edit) </td> <td class="ranks" /></tr>
+     </table>
+</div>
 </div>
 
-<div style="width:550px"> <!-- General information -->
-    <table id="about-character" style="width:550px;">
+<div id="general-information"> <!-- General information -->
+    <table id="about-character" class="column-2">
         <tr> <td><label for="name"><b>Name</b></label></td> <td><input id="name" type="text" /></td> </tr>
         <tr> <td><label for="concept"><b>Concept</b></label></td> <td><input id="concept" type="text" /></td> </tr>
         <tr> <td><label for="description"><b>Description</b></label></td> <td><input id="description" type="text" /></td> </tr>
@@ -42,7 +39,9 @@
         </tr>
     </table>
 
-<label><b>Notes</b><br><textarea id="notes" class="big-text"></textarea></label>
+<div>
+    <label for="notes"><b>Notes</b></label> <br><textarea id="notes" class="big-text column-2"></textarea>
+</div>
 
 <div id="about-health" class="column-2 health-container">
     <div class="health vitality">
@@ -75,7 +74,11 @@
     </div>
 </div>
 
-<label><b>Possessions</b> <br><textarea name="possessions" class="big-text"></textarea></label>
+<div>
+    <label for="possessions"><b>Possessions</b></label> <br><textarea id="possessions" class="big-text column-2"></textarea>
+</div>
+
+<div>
 <table id="weapons" class="column-2">
 <thead>
     <th>Weapon</th>
@@ -89,7 +92,9 @@
 <tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
 <tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
 </table>
+</div>
 
+<div>
 <table id="karma" class="column-2">
   <tr>
     <th><div class="field-box"><label for="kiai-value">Kiai</label> </th><td> <input class="fate" type="text" id="kiai-value" /></div></td>
@@ -118,7 +123,16 @@
   </tr>
 </table>
 </div>
+
 </div>
+</div>
+
+<div id="control">
+    <input type="button" id="save" value="Save"/>
+    <input type="button" id="load" value="Load"/>
+    <input type="button" id="calc" value="Calc" title="Calculate secondary values"/>
+</div>
+
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" >!window.jQuery && document.write('<script src="./jquery-3.1.0.js"><\/script>')</script>
