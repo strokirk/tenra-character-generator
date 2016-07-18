@@ -13,7 +13,7 @@
 </div>
 
 <div id="character">
-<div>
+<div class="column-1 rght">
 <table id="attribute-tables">
     <tr><td> <table class="attribute"><tr><td class="attribute-label label">Body</td> <td><input type="text" id="body"/></td> </tr></table> </td></tr>
     <tr><td> <table class="attribute"><tr><td class="attribute-label label">Agility</td> <td><input type="text" id="agility"/></td> </tr></table> </td></tr>
@@ -44,31 +44,31 @@
 
 <label><b>Notes</b><br><textarea id="notes" class="big-text"></textarea></label>
 
-<table id="about-health"> <tr>
+<table id="about-health" class="column-2"> <tr>
 <td> <table class="health vitality">
-<tr> <th class="vitality"> <label for="vitality">Vitality<br/><span class="small">(body+spirit)</span></label> </th> </tr>
+<tr> <th class="vitality"> <label for="vitality">Vitality<br/><span class="x-small">(Body+Spirit)</span></label> </th> </tr>
 <tr> <td class="vitality"> <input id="vitality" type="number" /> </td> </tr>
     </table> </td>
 
 <td> <table class="health soul">
-<tr> <th class="soul"> <label for="soul">Soul<br/><span class="small">(Spirit+Knowledge)x2</span></label> </th> </tr>
+<tr> <th class="soul"> <label for="soul">Soul<br/><span class="x-small">(Spirit+Knowledge)&nbsp;x2</span></label> </th> </tr>
 <tr> <td class="soul"> <input id="soul" type="number" /> </td> </tr>
     </table> </td>
 
-<td> <table class="health wounds">
+<td colspan="2" class="w100"> <table class="health wounds w100">
 <tr> <th colspan="2"> Wounds ( <input type="text" id="light-wounds" class="noinputbox" /> -
                                <input type="text" id="heavy-wounds" class="noinputbox"> -
                                <input type="text" id="critical-wounds" class="noinputbox"> -
                                <input type="text" id="dead-wounds" class="noinputbox"> ) </th> </tr>
-<tr><td id="light"><div class="woundboxes"></div> <span class="small">Light</span></td>
-    <td id="heavy"><div class="woundboxes"></div> <span class="small">Heavy (+1)</span.small></td></tr>
-<tr><td id="critical"><div class="woundboxes"></div> <span class="small">Critical (+2/bleed)</span.small></td>
-    <td id="dead"><div class="woundboxes"></div> <span class="small">Dead (+3)</span.small></td></tr>
+<tr><td class="woundboxes" id="light">    <div></div> <span class="small">Light</span> </td>
+    <td class="woundboxes" id="heavy">    <div></div> <span class="small">Heavy (+1)</span> </td> </tr>
+<tr><td class="woundboxes" id="critical"> <div></div> <span class="small">Critical (+2/bleed)</span> </td>
+    <td class="woundboxes" id="dead">     <div></div> <span class="small">Dead (+3)</span> </td> </tr>
     </table> </td>
 </tr> </table>
 
 <label><b>Possessions</b> <br><textarea name="possessions" class="big-text"></textarea></label>
-<table id="weapons">
+<table id="weapons" class="column-2">
 <thead>
     <th>Weapon</th>
     <th>Rating</th>
@@ -82,21 +82,21 @@
 <tr> <td><input type="text" name="name"></td><td><input type="text" name="rating"></td><td><input type="text" name="rof"></td><td><input type="text" name="range"></td><td><input type="text" name="ammo"></td> </tr>
 </table>
 
-<table id="karma">
+<table id="karma" class="column-2">
   <tr>
-    <td><div class="field-box"><label>Kiai</label> <input class="fate" type="text"/></div></td>
-    <td><div class="field-box"><label>Spent Kiai</label> <input class="fate" type="text"></div></td>
-    <td><div class="field-box"><label>Karma</label> <input class="fate" type="text"/></div></td>
-    <td><div class="field-box"><label>Fate Cost</label> <input id="fate-value" class="fate" type="text"></div></td>
+    <th><div class="field-box"><label for="kiai-value">Kiai</label> </th><td> <input class="fate" type="text" id="kiai-value" /></div></td>
+    <th><div class="field-box"><label for="karma-value">Karma</label> </th><td> <input class="fate" type="text" id="karma-value" /></div></td>
+    <td colspan=2> <span class="help_text">✧ Karma is increased by Kiai spent during each Act.</span> </td>
   </tr>
   <tr>
-    <td colspan=2> <span class="help_text">Karma is increased by Kiai spent during each Act.</span> </td>
-    <td colspan=2> <span class="help_text">Sum of all fate's cost must be lower than Karma.</span> </td>
+    <th><div class="field-box"><label for="kiai-spent">Spent Kiai</label>  </th><td> <input class="fate" type="text" id="kiai-spent" /></div></td>
+    <th><div class="field-box"><label for="fate-value">Fate Cost</label>  </th><td> <input class="fate" type="text" id="fate-value" /></div></td>
+    <td colspan=2> <span class="help_text">✧ Combined Fate costs must be lower than Karma.</span> </td>
   </tr>
-<tr>
-    <td colspan=4>
+  <tr>
+    <td colspan=9>
 <table id="fates">
-    <caption><b>Fates</b> <span class="help_text">Costs: 2dots = 10, 3dots = 30, 4dots = 40, 5dots = 50</span></caption>
+    <caption><b>Fates</b> <span class="help_text">Costs: 2 dots: 10, 3 dots: 30, 4 dots: 40, 5 dots: 50</span></caption>
     <tr> <td class="fate"> <div class="ranks" data-skill="fate-1"></div> <div class="fate"><input type="text"/></div> </td> </tr>
     <tr> <td class="fate"> <div class="ranks" data-skill="fate-2"></div> <div class="fate"><input type="text"/></div> </td> </tr>
     <tr> <td class="fate"> <div class="ranks" data-skill="fate-3"></div> <div class="fate"><input type="text"/></div> </td> </tr>
@@ -106,7 +106,7 @@
     <tr> <td class="fate"> <div class="ranks" data-skill="fate-7"></div> <div class="fate"><input type="text"/></div> </td> </tr>
     <tr> <td class="fate"> <div class="ranks" data-skill="fate-8"></div> <div class="fate"><input type="text"/></div> </td> </tr>
 </table>
-</td>
+    </td>
   </tr>
 </table>
 </div>
