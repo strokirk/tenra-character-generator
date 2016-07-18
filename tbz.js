@@ -98,23 +98,24 @@ $('.ranks').each(function(e, i, a) {
 })
 
 function setWounds(span) {
-    if ($(span).hasClass(".wound-level-max")) {
-        $(span).text("☐");
-        $(span).removeClass(".wound-level-max");
-        $(span).prev().addClass(".wound-level-max");
+    if ($(span).hasClass("wound-level-max")) {
+        $(span).removeClass("wound-level-max");
+        $(span).removeClass("i-wound-filled");
+        $(span).addClass("i-wound");
+        $(span).prev().addClass("wound-level-max");
     } else {
-        $(span).siblings().removeClass(".wound-level-max");
-        $(span).addClass(".wound-level-max");
-        $(span).text("☒");
-        $(span).prevAll("span").text("☒");
-        $(span).nextAll("span").text("☐");
+        $(span).siblings().removeClass("wound-level-max");
+        $(span).addClass("wound-level-max");
+        $(span).addClass("i-wound-filled");
+        $(span).prevAll("span").addClass("i-wound-filled")
+        $(span).nextAll("span").removeClass("i-wound-filled");
     }
 }
 
 (function(){
     'use strict';
     function makeSpan() {
-        var span = $("<span>☐</span>");
+        var span = $('<span class="i-wound"></span>');
         var handlerClick = function() { setWounds(this) };
         span.click(handlerClick);
         return span;

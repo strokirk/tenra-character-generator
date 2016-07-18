@@ -129,6 +129,29 @@ textarea.big-text {
 table#about-health td {
     vertical-align: top;
 }
+
+div.health-container {
+    margin-top: 0.3em;
+    box-sizing: border-box;
+}
+div.health {
+    box-sizing: border-box;
+    float: left;
+    width: 24%;
+}
+div.wounds {
+    width: 52%;
+}
+.i-wound {
+    cursor: pointer;
+}
+.i-wound::after {
+    content: "☐";
+}
+.i-wound-filled::after {
+    content: "☒";
+}
+
 .health {
     height: 130px;
 }
@@ -141,7 +164,7 @@ table#about-health td {
     text-align: middle;
     width: 1.5em;
 }
-.health, .health td, .health th {
+table.health, .health td, .health th {
     border: 1px solid black;
 }
 table.vitality, table.soul {
