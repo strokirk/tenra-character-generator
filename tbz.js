@@ -120,10 +120,15 @@ function setWounds(span) {
         span.click(handlerClick);
         return span;
     }
-    for (var i = 0; i < 10; i++) { $('#light div').prepend(makeSpan()) }
-    for (var i = 0; i < 5; i++)  { $('#heavy div').prepend(makeSpan()) }
-    for (var i = 0; i < 3; i++)  { $('#critical div').prepend(makeSpan()) }
-    for (var i = 0; i < 1; i++)  { $('#dead div').prepend(makeSpan()) }
+    function fillWithSpans(elm, num) {
+        elm = $(elm);
+        elm.html("")
+        for (var i = 0; i < num; i++) { elm.prepend(makeSpan()) }
+    }
+    fillWithSpans($('#light div'), 10)
+    fillWithSpans($('#heavy div'), 5)
+    fillWithSpans($('#critical div'), 3)
+    fillWithSpans($('#dead div'), 1)
 })();
 
 
@@ -199,9 +204,10 @@ function calcSecondaryAttributes() {
         $("#soul").val(soul);
     }
     if (body) {
-        $("#light-wounds").val(Math.max(parseInt(body) / 1, 1));
-        $("#heavy-wounds").val(Math.max(parseInt(body) / 2, 1));
-        $("#critical-wounds").val(Math.max(parseInt(body) / 4, 1));
+        var rounddiv = function(val, div) { return Math.max(Math.ceil(parseInt(body) / div, 10), 1); }
+        $("#light-wounds").val(rounddiv(body, 1));
+        $("#heavy-wounds").val(rounddiv(body, 2));
+        $("#critical-wounds").val(rounddiv(body, 4));
         $("#dead-wounds").val(1);
     }
 }

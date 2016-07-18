@@ -126,21 +126,55 @@ textarea.big-text {
 .w100 {
     width: 100%;
 }
-table#about-health td {
-    vertical-align: top;
-}
 
-div.health-container {
+.health-container {
     margin-top: 0.3em;
     box-sizing: border-box;
 }
-div.health {
+.health {
+    height: 130px;
     box-sizing: border-box;
     float: left;
-    width: 24%;
 }
-div.wounds {
+.health.soul {
+    width: 22%;
+    margin-right: 2%;
+}
+.health.vitality {
+    width: 22%;
+    margin-right: 2%;
+}
+.health.wounds {
     width: 52%;
+}
+.health table {
+    height: 100%;
+    width: 100%;
+}
+.health th {
+    text-align: center;
+    background-color: #eaeaea;
+}
+.health table, .health td, .health th {
+    border: 1px solid black;
+}
+.wounds th input {
+    border-radius: 5px;
+    text-align: center;
+    width: 1.5em;
+}
+.soul th {
+    padding: 0 0.3em;
+}
+.wounds td {
+    padding-left: 0.2em;
+}
+input#soul, input#vitality {
+    font-size: 2em;
+    width: 100%;
+    height: 75px;
+    text-align: center;
+    box-sizing: border-box;
 }
 .i-wound {
     cursor: pointer;
@@ -152,40 +186,6 @@ div.wounds {
     content: "☒";
 }
 
-.health {
-    height: 130px;
-}
-.health th {
-    text-align: center;
-    background-color: #eaeaea;
-}
-.health th input {
-    border-radius: 5px;
-    text-align: middle;
-    width: 1.5em;
-}
-table.health, .health td, .health th {
-    border: 1px solid black;
-}
-table.vitality, table.soul {
-    width: 125px;
-}
-th.soul {
-    padding: 0 0.3em;
-}
-table.wounds {
-    min-width: 250px;
-}
-.woundboxes {
-    padding-left: 0.2em;
-}
-input#soul, input#vitality {
-    font-size: 2em;
-    width: 100%;
-    height: 75px;
-    text-align: center;
-    box-sizing: border-box;
-}
 
 #weapons {
     border: solid 1px black;

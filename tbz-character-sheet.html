@@ -46,27 +46,31 @@
 
 <div id="about-health" class="column-2 health-container">
     <div class="health vitality">
-        <table class="health vitality">
+        <table>
             <tr> <th class="vitality"> <label for="vitality">Vitality<br/><span class="x-small">(Body+Spirit)</span></label> </th> </tr>
             <tr> <td class="vitality"> <input id="vitality" type="number" /> </td> </tr>
         </table>
     </div>
     <div class="health soul">
-        <table class="health soul">
-            <tr> <th class="soul"> <label for="soul">Soul<br/><span class="x-small">(Spirit+Knowledge)&nbsp;x2</span></label> </th> </tr>
-            <tr> <td class="soul"> <input id="soul" type="number" /> </td> </tr>
+        <table>
+            <tr> <th> <label for="soul">Soul<br/><span class="x-small">(Spirit+Knowledge)&nbsp;x2</span></label> </th> </tr>
+            <tr> <td> <input id="soul" type="number" /> </td> </tr>
         </table>
     </div>
     <div class="health wounds">
-        <table class="health wounds w100">
-            <tr> <th colspan="2"> Wounds ( <input type="text" id="light-wounds" class="noinputbox" /> -
-                    <input type="text" id="heavy-wounds" class="noinputbox"> -
-                    <input type="text" id="critical-wounds" class="noinputbox"> -
-                    <input type="text" id="dead-wounds" class="noinputbox"> ) </th> </tr>
-            <tr><td class="woundboxes" id="light">    <div></div> <span class="small">Light</span> </td>
-                <td class="woundboxes" id="heavy">    <div></div> <span class="small">Heavy (+1)</span> </td> </tr>
-            <tr><td class="woundboxes" id="critical"> <div></div> <span class="small">Critical (+2/bleed)</span> </td>
-                <td class="woundboxes" id="dead">     <div></div> <span class="small">Dead (+3)</span> </td> </tr>
+        <table>
+            <tr>
+                <th colspan="2">
+                    Wounds ( <input type="text" id="light-wounds" class="noinputbox" /> -
+                             <input type="text" id="heavy-wounds" class="noinputbox"> -
+                             <input type="text" id="critical-wounds" class="noinputbox"> -
+                             <input type="text" id="dead-wounds" class="noinputbox"> )
+                </th>
+            </tr>
+            <tr><td id="light">    <div class="fn-woundboxes">&nbsp;</div> <span class="small">Light</span> </td>
+                <td id="heavy">    <div class="fn-woundboxes">&nbsp;</div> <span class="small">Heavy (+1)</span> </td> </tr>
+            <tr><td id="critical"> <div class="fn-woundboxes">&nbsp;</div> <span class="small">Critical (+2/bleed)</span> </td>
+                <td id="dead">     <div class="fn-woundboxes">&nbsp;</div> <span class="small">Dead (+3)</span> </td> </tr>
         </table>
     </div>
 </div>
