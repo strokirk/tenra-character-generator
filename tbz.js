@@ -29,6 +29,7 @@ $('.label').each(function( index ) {
         var dbi = db[name];
         for (item in dbi) {
             var tr = $('<tr><td class="label">'+dbi[item]+'</td><td class="ranks"></td></tr>');
+            tr.children('.ranks').data('skill', dbi[item]);
             $(this).closest('tbody').append(tr);
             $(this).parent('tr').addClass(name);
             $(this).closest('table').addClass(name);
@@ -37,48 +38,62 @@ $('.label').each(function( index ) {
     }
 } );
 
-function setRanks(div) {
-    var skill = $(div).parent().prev().text();
-    if (!(skill in ranks)) ranks[skill] = 0;
-
-    var rank = $(div).attr('rank');
-    if (ranks[skill] < rank) {
-        $(div).removeClass('rank-filled');
-    } else {
-        $(div).addClass('rank-filled');
+function resetRanks(ranksDiv) {
+    ranksDiv = $(ranksDiv);
+    if (ranksDiv.data('skill') in ranks) {
+        ranksDiv.data('value', ranks[ranksDiv.data('skill')]);
+    }
+    var value = ranksDiv.data('value');
+    var divs = $(ranksDiv).children();
+    for (var i = 0, len = divs.length; i < len; i++) {
+        var elm = $(divs[i]);
+        if (elm.data('rank') <= value) {
+            elm.addClass('rank-filled');
+        } else {
+            elm.removeClass('rank-filled');
+        }
     }
 }
-function setRanks2(div) {
+function hoverRanks(div) {
     div = $(div);
-    var skill = div.parent().prev().text();
-    var rank = div.attr('rank');
-    if (ranks[skill] == rank) {
-        ranks[skill] = rank - 1;
-        var skill = div.parent().prev().text();
-        div.removeClass('rank-filled');
-    } else {
-        ranks[skill] = rank;
-        var nextSiblings = div.nextAll();
-        var leftSiblings = div.prevAll();
-        div.addClass('rank-filled');
-        div.prevAll().addClass('rank-filled');
-        div.nextAll().removeClass('rank-filled');
-    }
+    div.prevAll().addClass('rank-filled');
+    div.addClass('rank-filled');
+    div.nextAll().removeClass('rank-filled');
 }
+function setRanks(ranksDiv, div) {
+    var skill = $(ranksDiv).data('skill')
+    var rank = $(div).data('rank');
+    if (ranks[skill] == rank) {
+        rank = rank - 1;
+    }
+    ranks[skill] = rank;
+    resetRanks(ranksDiv);
+}
+
 $('#attribute-tables').find('input').each( function() {
     $(this).addClass('unfilled');
     $(this).bind('input', function() {$(this).removeClass('unfilled'); if (!(this.value)) $(this).addClass('unfilled');});
 });
-$('.ranks').each(function(index) {
+$('.ranks').each(function(e, i, a) {
+    var that = this;
+    var elm = $(this);
+    var skill = elm.data('skill');
+    if (!skill) { }
+    if (skill && ranks[skill]) {
+        elm.data('value', ranks[skill])
+    } else {
+        elm.data('value', 0);
+    }
     for (var i = 0; i < 5; i++) {
-        var div = $('<div class="rank" rank="' + (i + 1) + '"/>');
-        var handlerIn = function() { setRanks(this) };
-        var handlerOut = function() { setRanks(this) };
-        var handlerClick = function() { setRanks2(this) };
+        var div = $('<div class="rank"/>');
+        div.data('rank', i + 1)
+        var handlerIn = function(evt) { hoverRanks(this) };
+        var handlerOut = function(evt) { resetRanks(that) };
+        var handlerClick = function(evt) { setRanks(that, this) };
         div.hover(handlerIn, handlerOut);
         div.click(handlerClick);
-        $(this).append(div);
-        setRanks(div);
+        $(that).append(div);
+        resetRanks(that);
     }
 })
 
@@ -167,7 +182,7 @@ function loadCharacterFromLocal() {
         }
     }
     console.log("Loading complete. Updating.");
-    $('div.rank').each( function() {setRanks(this)} );
+    $('.ranks').each( function() {resetRanks(this)} );
 }
 
 function calcSecondaryAttributes() {
