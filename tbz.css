@@ -34,9 +34,25 @@ body {
     width: 210mm;
     float: left;
 }
+
 #control {
     float: left;
+    margin: 0.5em;
+    text-align: center;
 }
+#control h3 {
+    margin: 0.5em 0 1em;
+    font-size: 0.90em;
+}
+#control h2 {
+    margin: 0;
+    font-size: 1.10em;
+}
+#control h1 {
+    margin: 0;
+    font-size: 1.50em;
+}
+
 td {
     vertical-align: text-top;
 }
