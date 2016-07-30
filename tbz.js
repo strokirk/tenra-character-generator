@@ -23,13 +23,13 @@ var ranks = {
     'Pillow Arts': 1
 };
 
-$('.label').each(function( index ) {
+$('.label').each(function(index) {
     var elm = $(this);
     var name = elm.text().toLowerCase();
     if (name in db) {
         var dbi = db[name];
         for (item in dbi) {
-            var tr = $('<tr><td class="label">'+dbi[item]+'</td><td class="ranks"></td></tr>');
+            var tr = $('<tr><td class="label">' + dbi[item] + '</td><td class="ranks"></td></tr>');
             tr.children('.ranks').data('skill', dbi[item]);
             elm.closest('tbody').append(tr);
             elm.parent('tr').addClass(name);
@@ -37,7 +37,7 @@ $('.label').each(function( index ) {
             elm.closest('table').closest('tr').addClass(name);
         }
     }
-} );
+});
 
 function resetRanks(ranksDiv) {
     ranksDiv = $(ranksDiv);
@@ -55,12 +55,14 @@ function resetRanks(ranksDiv) {
         }
     }
 }
+
 function hoverRanks(div) {
     div = $(div);
     div.prevAll().addClass('rank-filled');
     div.addClass('rank-filled');
     div.nextAll().removeClass('rank-filled');
 }
+
 function setRanks(ranksDiv, div) {
     var skill = $(ranksDiv).data('skill')
     var rank = $(div).data('rank');
@@ -71,15 +73,18 @@ function setRanks(ranksDiv, div) {
     resetRanks(ranksDiv);
 }
 
-$('#attribute-tables').find('input').each( function() {
+$('#attribute-tables').find('input').each(function() {
     $(this).addClass('unfilled');
-    $(this).bind('input', function() {$(this).removeClass('unfilled'); if (!(this.value)) $(this).addClass('unfilled');});
+    $(this).bind('input', function() {
+        $(this).removeClass('unfilled');
+        if (!(this.value)) $(this).addClass('unfilled');
+    });
 });
 $('.ranks').each(function(e, i, a) {
     var that = this;
     var elm = $(this);
     var skill = elm.data('skill');
-    if (!skill) { }
+    if (!skill) {}
     if (skill && ranks[skill]) {
         elm.data('value', ranks[skill])
     } else {
@@ -113,14 +118,16 @@ function setWounds(span) {
     }
 }
 
-(function(){
+(function() {
     'use strict';
+
     function makeSpan() {
         var span = $('<span class="i-wound"></span>');
         var handlerClick = function() { setWounds(this) };
         span.click(handlerClick);
         return span;
     }
+
     function fillWithSpans(elm, num) {
         elm = $(elm);
         elm.html("")
@@ -154,7 +161,7 @@ function saveCharacterToLocal() {
     console.log("Saving.");
     var characterObject = {};
     for (var i = 0, len = saved_ids.length; i < len; i++) {
-        characterObject[saved_ids[i]] = $('#'+saved_ids[i]).val();
+        characterObject[saved_ids[i]] = $('#' + saved_ids[i]).val();
     }
     characterObject['skills'] = {};
     for (var rank in ranks) {
@@ -173,14 +180,14 @@ function loadCharacterFromLocal() {
         var characterObject = JSON.parse(characterString);
         console.log(characterObject);
         var attr, skill;
-        for (skill in characterObject['skills']){
+        for (skill in characterObject['skills']) {
             if (characterObject['skills'].hasOwnProperty(skill)) {
                 ranks[skill] = characterObject['skills'][skill];
             }
         }
-        for (attr in characterObject){
+        for (attr in characterObject) {
             if (characterObject.hasOwnProperty(attr)) {
-                var elem = $('#'+attr);
+                var elem = $('#' + attr);
                 if (elem.length) {
                     elem.val(characterObject[attr]);
                     if (characterObject[attr]) elem.removeClass("unfilled");
@@ -214,6 +221,6 @@ function calcSecondaryAttributes() {
 }
 
 console.log("Binding save/load handlers.");
-$('#save').click( saveCharacterToLocal );
-$('#load').click( loadCharacterFromLocal );
-$('#calc').click( calcSecondaryAttributes );
+$('#save').click(saveCharacterToLocal);
+$('#load').click(loadCharacterFromLocal);
+$('#calc').click(calcSecondaryAttributes);
