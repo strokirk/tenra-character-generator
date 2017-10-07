@@ -2,6 +2,11 @@ body {
     font-family: Arial;
 }
 
+.subtle {
+    color: grey;
+    font-size: 11pt;
+}
+
 .noinputbox {
     width: 2em;
     border: none;
