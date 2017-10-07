@@ -204,16 +204,16 @@ function loadCharacterFromLocal() {
     for (attr in characterObject) {
       if (characterObject.hasOwnProperty(attr)) {
         let elem = document.getElementById(attr);
-        if (elem.length) {
-          elem.val(characterObject[attr]);
-          if (characterObject[attr]) elem.removeClass("unfilled");
+        if (elem) {
+          elem.value = characterObject[attr];
+          if (characterObject[attr]) elem.classList.remove("unfilled");
         }
       }
     }
   }
   console.log("Loading complete. Updating.");
-  document.querySelectorAll('.ranks').forEach(function(elm) {
-    resetRanks(this)
+  document.querySelectorAll('.ranks div').forEach(function(elm) {
+    resetRanks.call(elm)
   })
 }
 
@@ -223,11 +223,11 @@ function calcSecondaryAttributes() {
   let knowledge = document.getElementById("knowledge").value;
   if (body && spirit) {
     let vitality = parseInt(body) + parseInt(spirit);
-    document.getElementById("vitality").val(vitality);
+    document.getElementById("vitality").value = vitality;
   }
   if (knowledge && spirit) {
     let soul = (parseInt(spirit) + parseInt(knowledge)) * 2;
-    document.getElementById("soul").val(soul);
+    document.getElementById("soul").value = soul;
   }
   if (body) {
     let rounddiv = function(val, div) { return Math.max(Math.ceil(parseInt(body) / div, 10), 1); }
