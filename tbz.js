@@ -1,143 +1,158 @@
-var db = {
-    'body': ['Unarmed Combat', 'Wormcharm'],
-    'agility': ['Movement', 'Melee Weapons', 'Evasion', 'Stealth', 'Ninjutsu', 'Criminal Arts'],
-    'senses': ['First aid', 'Notice', 'Marksman', 'Pursuit/Hunt', 'Forgery'],
-    'knowledge': ['Information', 'Onmyoujutsu'],
-    'spirit': ['Willpower', 'Resonance', 'Interface', 'Buddhist Magic'],
-    'empathy': ['Persuation', 'Pillow Arts', 'Perform'],
-    'station': ['Strategy', 'Etiquette', 'Shinto', 'Art of Rule']
+'use strict';
+
+let db = {
+  'body': ['Unarmed Combat', 'Wormcharm'],
+  'agility': ['Movement', 'Melee Weapons', 'Evasion', 'Stealth', 'Ninjutsu', 'Criminal Arts'],
+  'senses': ['First aid', 'Notice', 'Marksman', 'Pursuit/Hunt', 'Forgery'],
+  'knowledge': ['Information', 'Onmyoujutsu'],
+  'spirit': ['Willpower', 'Resonance', 'Interface', 'Buddhist Magic'],
+  'empathy': ['Persuation', 'Pillow Arts', 'Perform'],
+  'station': ['Strategy', 'Etiquette', 'Shinto', 'Art of Rule'],
 }
-var ranks = {
-    'Movement': 1,
-    'Melee Weapons': 1,
-    'Evasion': 1,
-    'Stealth': 1,
-    'Unarmed Combat': 1,
-    'First aid': 1,
-    'Notice': 1,
-    'Marksman': 1,
-    'Pursuit/Hunt': 1,
-    'Information': 1,
-    'Willpower': 1,
-    'Persuation': 1,
-    'Pillow Arts': 1
+let ranks = {
+  'Movement': 1,
+  'Melee Weapons': 1,
+  'Evasion': 1,
+  'Stealth': 1,
+  'Unarmed Combat': 1,
+  'First aid': 1,
+  'Notice': 1,
+  'Marksman': 1,
+  'Pursuit/Hunt': 1,
+  'Information': 1,
+  'Willpower': 1,
+  'Persuation': 1,
+  'Pillow Arts': 1,
 };
 
-$('.label').each(function(index) {
-    var elm = $(this);
-    var name = elm.text().toLowerCase();
-    if (name in db) {
-        var dbi = db[name];
-        for (item in dbi) {
-            var tr = $('<tr><td class="label">' + dbi[item] + '</td><td class="ranks"></td></tr>');
-            tr.children('.ranks').data('skill', dbi[item]);
-            elm.closest('tbody').append(tr);
-            elm.parent('tr').addClass(name);
-            elm.closest('table').addClass(name);
-            elm.closest('table').closest('tr').addClass(name);
-        }
+document.querySelectorAll('th.label').forEach(function(elm, index) {
+  let name = elm.textContent.toLowerCase();
+  let tbody = elm.parentNode.parentNode
+  if (name in db) {
+    let dbi = db[name];
+    for (let item in dbi) {
+      let tr = document.createElement("tr")
+      tr.innerHTML = '<td class="label">' + dbi[item] + '</td><td class="ranks"></td>'
+      tr.querySelector('.ranks').setAttribute("data-skill", dbi[item])
+      tbody.appendChild(tr)
     }
+    elm.parentNode.classList.add(name);
+    tbody.parentNode.classList.add(name);
+  }
 });
 
-function resetRanks(ranksDiv) {
-    ranksDiv = $(ranksDiv);
-    if (ranksDiv.data('skill') in ranks) {
-        ranksDiv.data('value', ranks[ranksDiv.data('skill')]);
+function resetRanks() {
+  const div = this.parentNode
+  const skill = div.getAttribute('data-skill')
+  if (skill in ranks) {
+    div.setAttribute('data-value', ranks[skill])
+  }
+  const value = div.getAttribute('data-value')
+  let divs = div.children
+  for (let i = 0, len = divs.length; i < len; i++) {
+    let elm = divs[i];
+    const rank = elm.getAttribute('data-rank')
+    if (rank <= value) {
+      elm.classList.add('rank-filled')
+    } else {
+      elm.classList.remove('rank-filled')
     }
-    var value = ranksDiv.data('value');
-    var divs = $(ranksDiv).children();
-    for (var i = 0, len = divs.length; i < len; i++) {
-        var elm = $(divs[i]);
-        if (elm.data('rank') <= value) {
-            elm.addClass('rank-filled');
-        } else {
-            elm.removeClass('rank-filled');
-        }
-    }
+  }
 }
 
-function hoverRanks(div) {
-    div = $(div);
-    div.prevAll().addClass('rank-filled');
-    div.addClass('rank-filled');
-    div.nextAll().removeClass('rank-filled');
+function hoverRanks(evt) {
+  const elm = this
+  const siblings = [].slice.call(elm.parentNode.children)
+  const i = siblings.indexOf(elm) + 1
+  for (const div of siblings.slice(0, i)) {
+    div.classList.add("rank-filled")
+  }
+  for (const div of siblings.slice(i)) {
+    div.classList.remove("rank-filled")
+  }
 }
 
-function setRanks(ranksDiv, div) {
-    var skill = $(ranksDiv).data('skill')
-    var rank = $(div).data('rank');
-    if (ranks[skill] == rank) {
-        rank = rank - 1;
-    }
-    ranks[skill] = rank;
-    resetRanks(ranksDiv);
+function setRanks() {
+  const div = this
+  const skill = div.parentNode.getAttribute("data-skill")
+  let rank = div.getAttribute('data-rank')
+  if (ranks[skill] == rank) {
+    rank = rank - 1
+  }
+  ranks[skill] = rank
+  resetRanks.call(div)
 }
 
-$('#attribute-tables').find('input').each(function() {
-    $(this).addClass('unfilled');
-    $(this).bind('input', function() {
-        $(this).removeClass('unfilled');
-        if (!(this.value)) $(this).addClass('unfilled');
-    });
-});
-$('.ranks').each(function(e, i, a) {
-    var that = this;
-    var elm = $(this);
-    var skill = elm.data('skill');
-    if (!skill) {}
+document.getElementById('attribute-tables')
+  .querySelectorAll('input')
+  .forEach(function(elm) {
+    elm.classList.add('unfilled');
+    elm.addEventListener('input', function() {
+      elm.classList.remove('unfilled');
+      if (!(elm.value)) elm.classList.add('unfilled');
+    })
+  })
+
+document.querySelectorAll('.ranks')
+  .forEach(function(elm) {
+    let newVal = 0
+    let skill = elm.getAttribute('data-skill');
     if (skill && ranks[skill]) {
-        elm.data('value', ranks[skill])
-    } else {
-        elm.data('value', 0);
+      newVal = ranks[skill]
     }
-    for (var i = 0; i < 5; i++) {
-        var div = $('<div class="rank"/>');
-        div.data('rank', i + 1)
-        var handlerIn = function(evt) { hoverRanks(this) };
-        var handlerOut = function(evt) { resetRanks(that) };
-        var handlerClick = function(evt) { setRanks(that, this) };
-        div.hover(handlerIn, handlerOut);
-        div.click(handlerClick);
-        $(that).append(div);
-        resetRanks(that);
+    elm.setAttribute('data-value', newVal);
+    for (let i = 0; i < 5; i++) {
+      let div = document.createElement("div")
+      div.classList.add("rank")
+      div.setAttribute('data-rank', i + 1)
+      div.addEventListener("mouseenter", hoverRanks)
+      div.addEventListener("mouseleave", resetRanks);
+      div.addEventListener("click", setRanks);
+      elm.appendChild(div);
+      resetRanks.call(div);
     }
-})
+  })
 
-function setWounds(span) {
-    if ($(span).hasClass("wound-level-max")) {
-        $(span).removeClass("wound-level-max");
-        $(span).removeClass("i-wound-filled");
-        $(span).addClass("i-wound");
-        $(span).prev().addClass("wound-level-max");
-    } else {
-        $(span).siblings().removeClass("wound-level-max");
-        $(span).addClass("wound-level-max");
-        $(span).addClass("i-wound-filled");
-        $(span).prevAll("span").addClass("i-wound-filled")
-        $(span).nextAll("span").removeClass("i-wound-filled");
+function setWounds() {
+  const span = this
+  const siblings = [].slice.call(span.parentNode.children)
+  const i = siblings.indexOf(span)
+  if (span.classList.contains("wound-level-max")) {
+    span.classList.remove("wound-level-max")
+    span.classList.remove("i-wound-filled")
+    span.classList.add("i-wound")
+    const prev = siblings[i - 1]
+    prev && prev.classList.add("wound-level-max");
+  } else {
+    siblings.forEach(function(elm) { elm.classList.remove("wound-level-max") })
+    span.classList.add("wound-level-max");
+    span.classList.add("i-wound-filled");
+    for (const div of siblings.slice(0, i + 1)) {
+      div.classList.add("i-wound-filled")
     }
+    for (const div of siblings.slice(i + 1)) {
+      div.classList.remove("i-wound-filled")
+    }
+  }
 }
 
-(function() {
-    'use strict';
+function makeSpan() {
+  const span = document.createElement("span")
+  span.classList.add("i-wound")
+  span.addEventListener("click", setWounds)
+  return span
+}
 
-    function makeSpan() {
-        var span = $('<span class="i-wound"></span>');
-        var handlerClick = function() { setWounds(this) };
-        span.click(handlerClick);
-        return span;
-    }
-
-    function fillWithSpans(elm, num) {
-        elm = $(elm);
-        elm.html("")
-        for (var i = 0; i < num; i++) { elm.prepend(makeSpan()) }
-    }
-    fillWithSpans($('#light div'), 10)
-    fillWithSpans($('#heavy div'), 5)
-    fillWithSpans($('#critical div'), 3)
-    fillWithSpans($('#dead div'), 1)
-})();
+function fillWithSpans(elm, num) {
+  elm.innerHTML = ""
+  for (let i = 0; i < num; i++) {
+    elm.appendChild(makeSpan())
+  }
+}
+fillWithSpans(document.querySelector('#light div'), 10)
+fillWithSpans(document.querySelector('#heavy div'), 5)
+fillWithSpans(document.querySelector('#critical div'), 3)
+fillWithSpans(document.querySelector('#dead div'), 1)
 
 
 // choose
@@ -154,73 +169,76 @@ function setWounds(span) {
 
 
 // Saving and loading
-var saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept", "description", "archetypes", "soul", "vitality"];
+let saved_ids = ["name", "body", "agility", "spirit", "station", "knowledge", "empathy", "senses", "notes", "concept",
+  "description", "archetypes", "soul", "vitality",
+];
 
 function saveCharacterToLocal() {
-    'use strict';
-    console.log("Saving.");
-    var characterObject = {};
-    for (var i = 0, len = saved_ids.length; i < len; i++) {
-        characterObject[saved_ids[i]] = $('#' + saved_ids[i]).val();
-    }
-    characterObject['skills'] = {};
-    for (var rank in ranks) {
-        characterObject['skills'][rank] = ranks[rank];
-    }
-    var json_char = JSON.stringify(characterObject);
-    localStorage.setItem("saved-tenra-character", json_char);
+  'use strict';
+  console.log("Saving.");
+  let characterObject = {};
+  for (let i = 0, len = saved_ids.length; i < len; i++) {
+    characterObject[saved_ids[i]] = document.getElementById(saved_ids[i]).value;
+  }
+  characterObject.skills = {};
+  for (let rank in ranks) {
+    characterObject.skills[rank] = ranks[rank];
+  }
+  let json_char = JSON.stringify(characterObject);
+  localStorage.setItem("saved-tenra-character", json_char);
 }
 
 function loadCharacterFromLocal() {
-    'use strict';
-    console.log("Loading.");
-    var characterString = localStorage.getItem("saved-tenra-character");
-    if (characterString) {
-        console.log(characterString);
-        var characterObject = JSON.parse(characterString);
-        console.log(characterObject);
-        var attr, skill;
-        for (skill in characterObject['skills']) {
-            if (characterObject['skills'].hasOwnProperty(skill)) {
-                ranks[skill] = characterObject['skills'][skill];
-            }
-        }
-        for (attr in characterObject) {
-            if (characterObject.hasOwnProperty(attr)) {
-                var elem = $('#' + attr);
-                if (elem.length) {
-                    elem.val(characterObject[attr]);
-                    if (characterObject[attr]) elem.removeClass("unfilled");
-                }
-            }
-        }
+  console.log("Loading.");
+  let characterString = localStorage.getItem("saved-tenra-character");
+  if (characterString) {
+    console.log(characterString);
+    let characterObject = JSON.parse(characterString);
+    console.log(characterObject);
+    let attr, skill;
+    for (skill in characterObject.skills) {
+      if (characterObject.skills.hasOwnProperty(skill)) {
+        ranks[skill] = characterObject.skills[skill];
+      }
     }
-    console.log("Loading complete. Updating.");
-    $('.ranks').each( function() {resetRanks(this)} );
+    for (attr in characterObject) {
+      if (characterObject.hasOwnProperty(attr)) {
+        let elem = document.getElementById(attr);
+        if (elem.length) {
+          elem.val(characterObject[attr]);
+          if (characterObject[attr]) elem.removeClass("unfilled");
+        }
+      }
+    }
+  }
+  console.log("Loading complete. Updating.");
+  document.querySelectorAll('.ranks').forEach(function(elm) {
+    resetRanks(this)
+  })
 }
 
 function calcSecondaryAttributes() {
-    var body = $("#body").val();
-    var spirit = $("#spirit").val();
-    var knowledge = $("#knowledge").val();
-    if (body && spirit) {
-        var vitality = parseInt(body) + parseInt(spirit);
-        $("#vitality").val(vitality);
-    }
-    if (knowledge && spirit) {
-        var soul = (parseInt(spirit) + parseInt(knowledge)) * 2;
-        $("#soul").val(soul);
-    }
-    if (body) {
-        var rounddiv = function(val, div) { return Math.max(Math.ceil(parseInt(body) / div, 10), 1); }
-        $("#light-wounds").val(rounddiv(body, 1));
-        $("#heavy-wounds").val(rounddiv(body, 2));
-        $("#critical-wounds").val(rounddiv(body, 4));
-        $("#dead-wounds").val(1);
-    }
+  let body = document.getElementById("body").value;
+  let spirit = document.getElementById("spirit").value;
+  let knowledge = document.getElementById("knowledge").value;
+  if (body && spirit) {
+    let vitality = parseInt(body) + parseInt(spirit);
+    document.getElementById("vitality").val(vitality);
+  }
+  if (knowledge && spirit) {
+    let soul = (parseInt(spirit) + parseInt(knowledge)) * 2;
+    document.getElementById("soul").val(soul);
+  }
+  if (body) {
+    let rounddiv = function(val, div) { return Math.max(Math.ceil(parseInt(body) / div, 10), 1); }
+    document.getElementById("light-wounds").value = rounddiv(body, 1);
+    document.getElementById("heavy-wounds").value = rounddiv(body, 2);
+    document.getElementById("critical-wounds").value = rounddiv(body, 4);
+    document.getElementById("dead-wounds").value = 1;
+  }
 }
 
 console.log("Binding save/load handlers.");
-$('#save').click(saveCharacterToLocal);
-$('#load').click(loadCharacterFromLocal);
-$('#calc').click(calcSecondaryAttributes);
+document.getElementById('save').addEventListener("click", saveCharacterToLocal);
+document.getElementById('load').addEventListener("click", loadCharacterFromLocal);
+document.getElementById('calc').addEventListener("click", calcSecondaryAttributes);
